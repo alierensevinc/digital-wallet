@@ -1,0 +1,2 @@
+INSERT INTO customers (id, name, surname, tckn, role) VALUES (1, 'Ali Eren', 'Sevinc', '12345678901', 'CUSTOMER');
+INSERT INTO customers (id, name, surname, tckn, role) VALUES (2, 'Sena', 'Sevinc', '98765432100', 'EMPLOYEE');
