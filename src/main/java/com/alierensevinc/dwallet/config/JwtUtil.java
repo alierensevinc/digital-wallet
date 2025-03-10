@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private static final String SECRET_KEY_STRING = "VGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLUpXVC1HZW5lcmF0aW9uIQ=="; // Replace with a securely generated Base64 key
+    private static final String SECRET_KEY_STRING = "VGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLUpXVC1HZW5lcmF0aW9uIQ==";
 
     // Convert the Base64-encoded key into a valid HMAC-SHA256 key
     private final Key SECRET_KEY = new SecretKeySpec(Base64.getDecoder().decode(SECRET_KEY_STRING), SignatureAlgorithm.HS256.getJcaName());
@@ -22,14 +22,14 @@ public class JwtUtil {
                 .setSubject(username)
                 .claim("role", role)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // Token valid for 1 hour
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY) // ✅ Fixed for JJWT 0.9.1
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
 
     public Claims extractClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(SECRET_KEY) // ✅ Fixed for JJWT 0.9.1
+                .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
                 .getBody();
     }

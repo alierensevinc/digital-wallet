@@ -21,9 +21,15 @@ public class Transaction {
     @JoinColumn(name = "wallet_id", nullable = false)
     private Wallet wallet;
 
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionOppositeType oppositePartyType;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus status;
+
     private double amount;
-    private String type;  // DEPOSIT or WITHDRAW
-    private String oppositePartyType; // IBAN or PAYMENT
     private String oppositeParty;
-    private String status; // PENDING, APPROVED, DENIED
 }

@@ -1,5 +1,6 @@
 package com.alierensevinc.dwallet.service;
 
+import com.alierensevinc.dwallet.dto.WalletRequest;
 import com.alierensevinc.dwallet.entity.Customer;
 import com.alierensevinc.dwallet.entity.Wallet;
 import com.alierensevinc.dwallet.repository.CustomerRepository;
@@ -15,15 +16,15 @@ public class WalletService {
     private final WalletRepository walletRepository;
     private final CustomerRepository customerRepository;
 
-    public Wallet createWallet(Long customerId, String walletName, String currency, boolean activeForShopping, boolean activeForWithdraw) {
-        Customer customer = customerRepository.findById(customerId)
+    public Wallet createWallet(WalletRequest walletRequest) {
+        Customer customer = customerRepository.findById(walletRequest.getCustomerId())
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
 
-        if (!List.of("TRY", "USD", "EUR").contains(currency)) {
+        if (!List.of("TRY", "USD", "EUR").contains(walletRequest.getCurrency())) {
             throw new RuntimeException("Invalid currency");
         }
 
-        Wallet wallet = new Wallet(null, customer, walletName, currency, activeForShopping, activeForWithdraw, 0.0, 0.0);
+        Wallet wallet = new Wallet(null, customer, walletRequest.getWalletName(), walletRequest.getCurrency(), walletRequest.isActiveForShopping(), walletRequest.isActiveForWithdraw(), 0.0, 0.0);
         return walletRepository.save(wallet);
     }
 

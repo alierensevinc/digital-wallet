@@ -1,10 +1,10 @@
 package com.alierensevinc.dwallet.controller;
 
+import com.alierensevinc.dwallet.config.JwtUtil;
 import com.alierensevinc.dwallet.dto.AuthResponse;
 import com.alierensevinc.dwallet.dto.LoginRequest;
 import com.alierensevinc.dwallet.entity.Customer;
 import com.alierensevinc.dwallet.repository.CustomerRepository;
-import com.alierensevinc.dwallet.config.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +30,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
 
-        String token = jwtUtil.generateToken(customer.getTckn(), customer.getRole().name());
+        String token = jwtUtil.generateToken(customer.getId().toString(), customer.getRole().name());
         return ResponseEntity.ok(new AuthResponse(token));
     }
 }

@@ -22,5 +22,5 @@ public class Customer {
     private String tckn;
 
     @Enumerated(EnumType.STRING)
-    private Role role; // CUSTOMER or EMPLOYEE
+    private Role role;
 }

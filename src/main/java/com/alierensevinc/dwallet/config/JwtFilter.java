@@ -25,7 +25,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        // Skip JWT validation for login endpoint
         if (path.startsWith("/auth/login")) {
             chain.doFilter(request, response);
             return;
